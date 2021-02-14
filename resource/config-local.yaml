@@ -1,0 +1,3 @@
+name: demo-app
+dc: local
+version: "1.0"
