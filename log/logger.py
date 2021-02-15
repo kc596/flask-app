@@ -1,4 +1,5 @@
 import logging.config
+import threading
 from config.factory import get_app_config
 from jsonformatter import JsonFormatter
 from log.jsonlog import CUSTOM_FORMAT, RECORD_CUSTOM_ATTRS
@@ -64,3 +65,16 @@ class Logger:
 
     def exception(self, err):
         self.__logger.exception(err)
+
+
+_logger = None
+_lock = threading.Lock()
+
+
+def get_logger():
+    global _logger
+    if _logger is None:
+        with _lock:
+            if _logger is None:
+                _logger = Logger(get_app_config().name)
+    return _logger

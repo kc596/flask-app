@@ -20,14 +20,12 @@ RECORD_CUSTOM_ATTRS = {
         'WARNING',
         'NOTSET',
         'ERROR',
-        'CRITICAL'] else None}
+        'CRITICAL'] else None,
+}
 
 CUSTOM_FORMAT = dict((
     ("application", "name"),
     ("level", "levelname"),
-    ("svr", BUILD_VERSION),
-    ("reqID", REQ_ID),
-    ("env", PROFILE),
     ("path", "pathname"),
     ("file", "filename"),
     ("module", "module"),

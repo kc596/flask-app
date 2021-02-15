@@ -21,7 +21,6 @@ def get_profile():
                     _profile = os.environ["SSP_REGION"]
                 except KeyError:
                     _profile = "local"
-                print("using profile", _profile)  # TODO: use logger
     return _profile
 
 

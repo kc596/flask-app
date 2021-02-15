@@ -9,11 +9,18 @@ handlers:
     class: logging.StreamHandler
     formatter: jsonlogger
     stream: ext://sys.stdout
+  kafka:
+    class: log.kafkalog.KafkaLogHandler
+    formatter: jsonlogger
+    bootstrap_servers:
+      - 'localhost:9092'
+    retries: 3
+    topic: 'app-logs'
 loggers:
   __main__:
     level: INFO
-    handlers: [console]
+    handlers: [console, kafka]
     propagate: no
 root:
   level: INFO
-  handlers: [console]
+  handlers: [console, kafka]
