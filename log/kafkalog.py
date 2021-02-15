@@ -23,11 +23,10 @@ def _get_producer(bootstrap_servers, retries):
     if _producer is None:
         with _lock_init:
             if _producer is None:
-                print(bootstrap_servers, retries)
                 _producer = KafkaProducer(
                     bootstrap_servers=bootstrap_servers,
                     retries=retries,
-                    value_serializer=lambda m: m.encode('utf-8'))
+                    value_serializer=lambda v: v.encode('utf-8'))
     return _producer
 
 
