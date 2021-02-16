@@ -1,6 +1,3 @@
-from log.constants import *
-
-
 """
 All the log object using `jsonlogger` will have fields mentioned in FORMAT.
     key: string, the key of json log.
