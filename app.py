@@ -1,4 +1,5 @@
-from config.factory import get_app_config
+import logging.config
+from config.factory import get_app_config, get_log_config
 from flask import Flask
 from prometheus_client import make_wsgi_app
 from route.app_routes import routes
@@ -24,6 +25,12 @@ class ApplicationControllerManger:
                 view_func=r.controller)
 
 
-app_config = get_app_config()
-app_controller_manager = ApplicationControllerManger(app_config.name, routes)
+# setup - important to configure log before initializing flask app
+logging.config.dictConfig(get_log_config())
+app_controller_manager = ApplicationControllerManger(
+    get_app_config().name, routes)
 app = app_controller_manager.app
+
+# disable flask app redundant info logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)

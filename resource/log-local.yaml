@@ -12,9 +12,7 @@ handlers:
   kafka:
     class: log.kafkalog.KafkaLogHandler
     formatter: jsonlogger
-    bootstrap_servers:
-      - localhost:9092
-    retries: 3
+    bootstrap_servers: localhost:9092
     topic: applogs
 loggers:
   __main__:
