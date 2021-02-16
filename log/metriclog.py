@@ -11,7 +11,7 @@ def metric_log(key: str):
             value = func(*args, **kwargs)
             run_time = time.perf_counter() - start_time     # seconds
             logger = get_logger()
-            logger.metric(key, int(round(run_time*1000)))
+            logger.metric(key, int(round(run_time * 1000)))
             return value
         return metric_wrapper
     return decorator
