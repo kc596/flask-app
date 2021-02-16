@@ -6,6 +6,8 @@
 - UWSGI
 - NGINX
 - config and profiles
+- logging - json, kafka logging
+- metric log annotation
 
 ## Web in Python
 

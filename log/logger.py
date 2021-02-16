@@ -22,6 +22,7 @@ class Logger:
         formatter = JsonFormatter(
             CUSTOM_FORMAT,
             record_custom_attrs=RECORD_CUSTOM_ATTRS,
+            separators=(',', ':'),
             mix_extra=True)
         for handler in self.__logger.parent.handlers:
             if isinstance(handler.formatter, JsonFormatter):
