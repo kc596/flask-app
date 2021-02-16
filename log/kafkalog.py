@@ -25,8 +25,9 @@ def get_failure_count():
 class KafkaLogHandler(logging.Handler):
     def __init__(self, bootstrap_servers: str, topic: str, *args, **kwargs):
         logging.Handler.__init__(self, *args, **kwargs)
-        self.producer = self._get_producer(bootstrap_servers)
+        self.bootstrap_servers = bootstrap_servers
         self.topic = topic
+        self.producer = None
 
     @staticmethod
     def _get_producer(bootstrap_servers):
@@ -39,6 +40,8 @@ class KafkaLogHandler(logging.Handler):
         return _producer
 
     def emit(self, record: logging.LogRecord) -> None:
+        if self.producer is None:
+            self.producer = self._get_producer(self.bootstrap_servers)
         with _lock_t:
             global _total_count
             _total_count += 1
