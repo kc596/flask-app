@@ -71,6 +71,7 @@ class KafkaLogHandler(logging.Handler):
         self.producer.flush()
 
     def close(self):
+        self.producer = None
         global _producer
         _producer = None
         pass
