@@ -39,6 +39,16 @@ class KafkaLogHandler(logging.Handler):
                         {"bootstrap.servers": bootstrap_servers})
         return _producer
 
+    @staticmethod
+    def _get_producer(bootstrap_servers):
+        global _producer
+        if _producer is None:
+            with _lock_init:
+                if _producer is None:
+                    _producer = Producer(
+                        {"bootstrap.servers": bootstrap_servers})
+        return _producer
+
     def emit(self, record: logging.LogRecord) -> None:
         if self.producer is None:
             self.producer = self._get_producer(self.bootstrap_servers)

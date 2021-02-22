@@ -1,6 +1,7 @@
 import socket
 from config.factory import get_app_config
 from datetime import datetime, timezone
+
 """
 All the log object using `jsonlogger` will have fields mentioned in FORMAT.
     key: string, the key of json log.
