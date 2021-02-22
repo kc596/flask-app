@@ -15,7 +15,6 @@ class Logger:
         self.__log_record = {}
         self.__logger = logging.getLogger(name=name)
         self.__apply_json_formatter()
-        self.__set_common_attributes()
 
     def __apply_json_formatter(self):
         """ changes json log format for all handlers with JsonFormatter """
@@ -27,11 +26,6 @@ class Logger:
         for handler in self.__logger.parent.handlers:
             if isinstance(handler.formatter, JsonFormatter):
                 handler.setFormatter(formatter)
-
-    def __set_common_attributes(self):
-        app_config = get_app_config()
-        self.__log_record[PROFILE] = app_config.dc
-        self.__log_record[BUILD_VERSION] = app_config.build_version
 
     def id(self, log_id):
         self.__log_record[REQ_ID] = log_id

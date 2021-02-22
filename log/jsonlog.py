@@ -1,3 +1,6 @@
+import socket
+from config.factory import get_app_config
+from datetime import datetime, timezone
 """
 All the log object using `jsonlogger` will have fields mentioned in FORMAT.
     key: string, the key of json log.
@@ -9,6 +12,8 @@ Example: key=F, value=filename. The log will be like :
 ...}
 """
 
+appconfig = get_app_config()
+
 RECORD_CUSTOM_ATTRS = {
     "levelname": lambda **record_attrs: record_attrs["levelname"] if record_attrs['levelname'] in [
         'DEBUG',
@@ -18,12 +23,19 @@ RECORD_CUSTOM_ATTRS = {
         'NOTSET',
         'ERROR',
         'CRITICAL'] else None,
+    "env": lambda: appconfig.dc,
+    "host": lambda: socket.gethostname(),
+    "svr": lambda: appconfig.build_version,
+    "timeStamp": lambda: int(
+        datetime.now(
+            tz=timezone.utc).timestamp()),
 }
 
+# These fields are present in all log entries
 CUSTOM_FORMAT = dict((
     ("application", "name"),
     ("level", "levelname"),
-    ("path", "pathname"),
+    ("caller", "pathname"),
     ("file", "filename"),
     ("module", "module"),
     ("line", "lineno"),
@@ -31,5 +43,9 @@ CUSTOM_FORMAT = dict((
     ("timestamp", "asctime"),
     ("thread", "threadName"),
     ("process", "process"),
-    ("message", "message")
+    ("message", "message"),
+    ("host", "host"),
+    ("timeStamp", "timeStamp"),
+    ("svr", "svr"),
+    ("env", "env")
 ))
